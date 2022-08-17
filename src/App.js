@@ -1,25 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import useAuth from './hooks/useAuth'
+import ChatApp from './components/ChatApp';
+import Login from './components/Login';
 
 function App() {
+
+  const user = useAuth();
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='bg-gradient-to-r from-cyan-300 to-blue-700 absolute inset-0'>
+    <h1 className='font-bold text-4xl'>Welcome to ChatRooms!</h1>
+      {user ? <ChatApp /> : <Login />}
     </div>
-  );
+  )
 }
 
 export default App;

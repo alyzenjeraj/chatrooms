@@ -1,9 +1,6 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAixxnG8BPy7afUa0_Q2hZOyRjFh2t1HH4",
   authDomain: "chatrooms-d3e22.firebaseapp.com",
@@ -15,3 +12,23 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+
+export const loginWithGoogle = async () => {
+    try {
+        const provider = new GoogleAuthProvider();
+
+        const auth = getAuth;
+
+        const { user } = await signInWithPopup(auth, provider)
+
+        return { uid: user.uid, displayName: user.displayName}
+    } catch (error) {
+        if (error.code !== 'auth/cancelled-popup-request') {
+            console.error(error);
+        }
+
+        return null;
+    }
+}
+
