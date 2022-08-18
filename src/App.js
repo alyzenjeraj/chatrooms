@@ -5,11 +5,11 @@ import Login from './components/Login';
 
 function App() {
 
-  const user = useAuth();
+  const {user} = useAuth();
   
   return (
-    <div className='bg-gradient-to-r from-cyan-300 to-blue-700 absolute inset-0'>
-    <h1 className='font-bold text-4xl'>Welcome to ChatRooms!</h1>
+    <div className='bg-stone-800 text-white absolute inset-0'>
+    <h1 className='font-bold text-4xl pt-10 pb-5 flex justify-center'>Welcome to ChatRooms!</h1>
       {user ? <ChatApp /> : <Login />}
     </div>
   )

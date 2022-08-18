@@ -1,24 +1,44 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
+import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, QuerySnapshot, doc } from 'firebase/firestore'
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAixxnG8BPy7afUa0_Q2hZOyRjFh2t1HH4",
-  authDomain: "chatrooms-d3e22.firebaseapp.com",
-  projectId: "chatrooms-d3e22",
-  storageBucket: "chatrooms-d3e22.appspot.com",
-  messagingSenderId: "1063197533227",
-  appId: "1:1063197533227:web:82cee12df2f4d0843d766e"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
+
+
+
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export const sendMessage = async (roomId, user, text) => {
+    try {
+        await addDoc(collection(db, 'chatrooms', roomId, 'messages'), {
+            uid: user.uid,
+            displayName: user.displayName,
+            text: text.trim(),
+            timestamp: serverTimestamp()
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 export const loginWithGoogle = async () => {
     try {
         const provider = new GoogleAuthProvider();
 
-        const auth = getAuth;
+        const auth = getAuth();
 
         const { user } = await signInWithPopup(auth, provider)
 
@@ -32,3 +52,17 @@ export const loginWithGoogle = async () => {
     }
 }
 
+export const getMessages = (roomId, callback) => {
+    return onSnapshot(
+        query (
+            collection(db, 'chatrooms', roomId, 'messages'), orderBy('timestamp', 'asc')
+        ),
+        (querySnapshot) => {
+            const messages = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            callback(messages)
+        }
+    )
+}

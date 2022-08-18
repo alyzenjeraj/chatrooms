@@ -8,9 +8,13 @@ const Login = () => {
 
 
     return (
-        <div>
-            <h2> Log In to Chat!</h2>
-            
+        
+        <div className='flex justify-center'>
+            <div>
+                <h2 className='font-medium text-xl'> Log In to Chat!</h2>
+                <button onClick={login} >Login with Google</button>
+                
+            </div>
         </div>
     )
 }
