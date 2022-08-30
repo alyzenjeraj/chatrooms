@@ -18,8 +18,8 @@ const MessageBoard = () => {
             <div>
                 <Link className='p-2 flex justify-center' to='/'>⬅️ To Chat Selection</Link>
             </div>
-            <div className='mt-3 flex justify-center'>
-                <div className='w-1/3 outline rounded-md'>
+            <div className='mt-3 flex justify-center h-screen'>
+                <div className='w-2/3 max-w-lg outline rounded-md h-2/3'>
                     <MessageList roomId={room.id} />
                     <MessageInput roomId={room.id} />
                 </div>

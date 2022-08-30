@@ -12,8 +12,8 @@ const ContextMenu = ({ docId }) => {
             <MenuItem>Edit</MenuItem>
             <MenuItem>Delete</MenuItem>
                 <SubMenu label="Add Reaction" >
-                    {reactionEmojis.map((emoji) => (
-                        <ReactionItem emoji={emoji} />
+                    {reactionEmojis.map((emoji, index) => (
+                        <ReactionItem emoji={emoji} key={index} />
                     ))}
                 </SubMenu>
         </Menu>

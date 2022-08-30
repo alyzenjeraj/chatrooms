@@ -15,12 +15,26 @@ const MessageList = ({roomId}) => {
         }
         
     })
+    console.log(messages.length)
 
     return (
-        <div ref={containerRef}>
-            {messages.map((message) => (
-                <Message className='' key={message.id} message={message} isOwnMessage={message.uid === user.uid} />
-            ))}
+        <div className='overflow-auto h-full scrollbar' ref={containerRef}>
+            <ul className=''>
+                {messages.length === 0 ? 
+                    (<h3 className='flex justify-center mt-12 text-slate-400' >This is the begining of the Chat! Have Fun!</h3>) 
+                    : 
+                    (messages.map((message) => (
+                        <Message 
+                            className='' 
+                            key={message.id} 
+                            message={message} 
+                            isOwnMessage={message.uid === user.uid} 
+                            
+                        />
+                )))}
+                
+            </ul>
+            
         </div>
     )
 }
