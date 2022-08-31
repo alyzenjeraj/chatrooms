@@ -1,10 +1,10 @@
 const chatRooms = [
-    {id: 'food', title: 'Food 🍊'},
-    {id: 'music', title: 'Music 🎶'},
-    {id: 'movies', title: 'Movies 🎥'},
-    {id: 'tv', title: 'TV 📺'},
-    {id: 'travel', title: 'Travel ✈️'},
-    {id: 'Books', title: 'Books 📚'},
+    {colURL: 'food', colName: 'Food 🍊'},
+    {colURL: 'music', colName: 'Music 🎶'},
+    {colURL: 'movies', colName: 'Movies 🎥'},
+    {colURL: 'tv', colName: 'TV 📺'},
+    {colURL: 'travel', colName: 'Travel ✈️'},
+    {colURL: 'Books', colName: 'Books 📚'},
 
 ]
 

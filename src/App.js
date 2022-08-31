@@ -20,3 +20,11 @@ function App() {
 }
 
 export default App;
+
+// TODO: 1. Add Search for collection name
+//TODO: 2. Add collection
+//TODO 3: Make collection private or public
+//TODO 4: Add Modals
+//TODO 5: Add cookie so i dont get kicked out of webpage
+//TODO 6: Better the login page
+//TODO 7: Add Redux

@@ -3,19 +3,25 @@ import { Menu, MenuItem, SubMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/core.css';
 import "@szhsin/react-menu/dist/index.css";
 import { EllipsisOutlined } from '@ant-design/icons'
-import ReactionItem from './ReactionItem';
 import reactionEmojis from '../data/reactionEmojis';
 
-const ContextMenu = ({ docId }) => {
+
+
+import { deleteMessage } from '../services/firebase';
+
+const ContextMenu = ({ docId, setCurrentId, messageId, roomId }) => {
+
+    
+    
     return (
-        <Menu  className='h-0 p-0 cursor-pointer text-black' menuButton={<EllipsisOutlined/>}>
-            <MenuItem>Edit</MenuItem>
-            <MenuItem>Delete</MenuItem>
-                <SubMenu label="Add Reaction" >
+        <Menu  className='h-0 pr-3 cursor-pointer text-black' menuButton={<EllipsisOutlined/>}>
+            <MenuItem onClick={() => setCurrentId(messageId)}>Edit</MenuItem>
+            <MenuItem onClick={() => deleteMessage(roomId, messageId)}>Delete</MenuItem>
+                {/* <SubMenu label="Add Reaction" >
                     {reactionEmojis.map((emoji, index) => (
-                        <ReactionItem emoji={emoji} key={index} />
+                        <MenuItem  key={index}>{emoji}</MenuItem>
                     ))}
-                </SubMenu>
+                </SubMenu> */}
         </Menu>
     )
 }

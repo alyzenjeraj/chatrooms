@@ -3,6 +3,7 @@ import { getMessages } from '../services/firebase'
 
 
 const useMessages = (roomId) => {
+    console.log('its getting aclled')
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
@@ -12,7 +13,7 @@ const useMessages = (roomId) => {
     }, [roomId])
 
 
-
+    console.log(messages)
     return messages;
 }
 

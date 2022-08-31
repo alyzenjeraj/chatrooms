@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth'
-import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, QuerySnapshot, doc } from 'firebase/firestore'
+import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, QuerySnapshot, doc, updateDoc, getDocs } from 'firebase/firestore'
 
 
 const firebaseConfig = {
@@ -26,13 +26,47 @@ export const sendMessage = async (roomId, user, text) => {
             uid: user.uid,
             displayName: user.displayName,
             text: text.trim(),
-            timestamp: serverTimestamp()
+            timestamp: serverTimestamp(),
+            emoji: '➕'
         })
     } catch (error) {
         console.log(error)
     }
 }
 
+export const updateMessage = async (roomId, messageId, message) => {
+    try {
+        await updateDoc(doc(db, 'chatrooms', roomId, 'messages', messageId), {
+            text: message,
+            editted: true
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const updateEmoji = async (roomId, messageId, emo) => {
+    try {
+        await updateDoc(doc(db, 'chatrooms', roomId, 'messages', messageId), {
+            emoji: emo,
+            
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteMessage = async (roomId, messageId) => {
+    try {
+        await updateDoc(doc(db, 'chatrooms', roomId, 'messages', messageId), {
+            deleted: true
+        })
+        console.log(messageId)
+    } catch (error) {
+        
+    }
+}
 
 export const loginWithGoogle = async () => {
     try {
@@ -53,6 +87,7 @@ export const loginWithGoogle = async () => {
 }
 
 export const getMessages = (roomId, callback) => {
+    
     return onSnapshot(
         query (
             collection(db, 'chatrooms', roomId, 'messages'), orderBy('timestamp', 'asc')
@@ -65,4 +100,46 @@ export const getMessages = (roomId, callback) => {
             callback(messages)
         }
     )
+}
+
+// export const getCollections = (callback) => {
+//     return onSnapshot(
+//         query (
+//             collection(db, 'chatrooms')
+//         ),
+//         (querySnapshot) => {
+//             const collections = querySnapshot.docs.map((doc) => ({
+//                 id: doc.id,
+//                 ...doc.data()
+//             }));
+//             callback(collections)
+//         }
+//     )
+// }
+
+export const getCollections = async (callback) => {
+    const querySnapshot = await getDocs(collection(db, 'collectionNames'));
+    const collections = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+
+    callback(collections)
+}
+
+export const addCollection = async (collectionObj) => {
+    
+    const { name, url, emoji } = collectionObj;
+
+    
+    try {
+        await addDoc(collection(db, 'collectionNames'), {
+            colURL: url,
+            colName: name,
+            colEmoji: emoji
+        })
+        
+    } catch (error) {
+        console.log(error)
+    }
 }
