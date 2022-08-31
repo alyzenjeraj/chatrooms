@@ -2,13 +2,16 @@ import { motion } from "framer-motion";
 import Backdrop from "./Backdrop";  
 import { CloseOutlined } from '@ant-design/icons'
 import _ from "lodash";
+import { useNavigate } from "react-router";
 
 import React, { useState } from 'react'
 import { addCollection } from "../../services/firebase";
 import useCollections from "../../hooks/useCollections";
 
 
-const Modal = ({ handleClose, text }) => {
+const Modal = ({ handleClose, text, setColl, coll }) => {
+    const navigate = useNavigate();
+
     const [collection, setCollection] = useState({
         name: '',
         url: '',
@@ -29,7 +32,9 @@ const Modal = ({ handleClose, text }) => {
     const handleSubmit= (e) => {
         e.preventDefault();
         addCollection(collection)
+        setColl(coll+1)
         handleClose();
+        // navigate(`/room/${collection.url}`)
     }
 
     
@@ -57,9 +62,9 @@ const Modal = ({ handleClose, text }) => {
                 
 
                 <form onSubmit={handleSubmit} className='flex flex-col justify-center'>
-                    <div className='flex flex-row '>
+                    <div className='flex flex-row gap-0'>
                         <input 
-                            className='place-item-center w-1/2  px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 bg-transparent
+                            className=' flex-1 place-item-center w-1/2 mx-3 px-4 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 bg-transparent
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 m-auto mt-3' 
                             type='text' 
                             placeholder='Enter a chatroom name! (Only Letters)' 
@@ -71,7 +76,7 @@ const Modal = ({ handleClose, text }) => {
                         />
 
                         <input 
-                            className='place-item-center   px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 bg-transparent
+                            className='mr-3 place-item-center   px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 bg-transparent
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 m-auto mt-3 w-2/12' 
                             type='text' 
                             placeholder='Emoji' 
@@ -83,7 +88,7 @@ const Modal = ({ handleClose, text }) => {
                         />
                     </div>
                    
-                    <button type='submit'>Submit</button>
+                    <button className='bg-[#3fb9d8] rounded-full m-auto mt-4 p-2' type='submit'>Submit</button>
 
                 </form>
 

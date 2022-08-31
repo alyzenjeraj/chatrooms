@@ -13,7 +13,7 @@ const MessageBoard = ({ rooms }) => {
     
       
 
-    const room = chatRooms.find((x) => x.colURL === params.id)
+    const room = rooms.find((x) => x.colURL === params.id)
     
 
     if(!room) console.log('ERROR ROOM NOT FOUND')

@@ -62,7 +62,7 @@ export const deleteMessage = async (roomId, messageId) => {
         await updateDoc(doc(db, 'chatrooms', roomId, 'messages', messageId), {
             deleted: true
         })
-        console.log(messageId)
+        
     } catch (error) {
         
     }

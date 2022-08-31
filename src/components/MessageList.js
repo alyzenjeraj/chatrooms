@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 const MessageList = ({roomId, setCurrentId}) => {
     const containerRef = useRef(null)
     const { user } = useAuth();
-    console.log(roomId)
+   
     const messages = useMessages(roomId)
 
     useLayoutEffect(() => {

@@ -9,8 +9,8 @@ function App() {
   
   return (
     <div className='scrollbar bg-zinc-800 text-white absolute inset-0'>
-      <h1 className='font-bold text-4xl pt-10 pb-5 flex justify-center'>Welcome to ChatRooms!</h1>
-        
+      <h1 className='m-auto m-4 font-bold text-4xl pt-10 pb-5 flex justify-center'>Welcome to ChatRooms!</h1>
+          
         {user ? <ChatApp /> : <Login />}
         
         

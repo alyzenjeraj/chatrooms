@@ -31,7 +31,9 @@ const Message = ({message, isOwnMessage, setCurrentId, roomId}) => {
                     <div>{text}</div>
                 )}
 
-                
+                {message.editted && !message.deleted && (
+                    <p className='text-xs'>(editted)</p>
+                )}                
                 
                 
             </div>

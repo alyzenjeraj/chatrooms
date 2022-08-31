@@ -2,26 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { getCollections } from '../services/firebase'
 
 
-const useCollections = () => {
+const useCollections = (updater) => {
     const [collections, setCollections] = useState([])
 
     useEffect(() => {
 
-        
-        const unsubscribe = getCollections(setCollections)
-        return unsubscribe;
+        const getRooms = async () => {
+            const unsubscribe = await getCollections(setCollections)
+            return unsubscribe;
     
+        }
 
         
+
+        getRooms()
 
         // const unsubscribe = getCollections(setCollections)
         // return unsubscribe;
         
         
-    }, [])
+    }, [setCollections, updater])
 
-    console.log('these are the collecitons')
-    console.log(collections)
+    
     return collections;
 }
 
